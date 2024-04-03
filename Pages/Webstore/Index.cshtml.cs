@@ -17,9 +17,26 @@ namespace Webshop.Pages.Webstore
 
         public List<Product> Products { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+
         public async Task OnGet()
         {
-            Products = await database.Products.ToListAsync();
+            var baits = from bait in database.Products
+                        select bait;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                baits = baits.Where(b => b.Name.Contains(SearchString));
+            }
+
+            Products = await baits.ToListAsync();
+        }
+
+        public IActionResult OnGetReset()
+        {
+            SearchString = "";
+            return Page();
         }
     }
 }

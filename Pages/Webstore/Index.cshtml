@@ -20,35 +20,53 @@
     li {
         list-style-type: none;
     }
-    table {
-        width: 50%;
-    }
-    table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    .product-image {
-        max-width: 150px;
-        height: 60px;
+
+    .container {
+        max-width: 70%;
         margin: auto;
-    }
-    td {
+        margin-top: 30px;
         display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: space-around;
         align-items: center;
-        vertical-align: middle;
+    }
+
+    .bait-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 250px;
+        height: 250px;
+        box-shadow: 0 0 4px black;
+        border-radius: 5px;
+    }
+
+    .product-image {
+        max-width: 300px;
+        height: 140px;
+        margin: auto;
     }
 </style>
 
 <h3>@ViewBag.Title</h3>
+<form>
+    <p>
+        Sök fiskedrag: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Sök" />
+        <a asp-page="/Webstore/Index">Rensa filter</a>
+    </p>
+</form>
 <hr />
-<table>
+<div class="container">
     @foreach (var bait in Model.Products)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(item => bait.Name) |
-                <img src="/Images/@bait.Image" alt="bait image" class="product-image"/> |
+        <a asp-page="/Webstore/Details" asp-route-id="@bait.Id">
+            <div class="bait-box">
+                @Html.DisplayFor(item => bait.Name)
+                <img src="/Images/@bait.Image" alt="bait image" class="product-image" />
                 @Html.DisplayFor(item => bait.Price) kr
-            </td>
-        </tr>
+            </div>
+        </a>
     }
-</table>
+</div>
