@@ -26,4 +26,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.16" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\Images\" />
+	</ItemGroup>
+
 </Project>

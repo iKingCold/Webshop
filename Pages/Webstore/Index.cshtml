@@ -1,4 +1,54 @@
 ﻿@page
 @model Webshop.Pages.Webstore.IndexModel
 @{
+    ViewBag.Title = "Beten";
 }
+
+<style>
+    html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    .home-page-welcome {
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style-type: none;
+    }
+    table {
+        width: 50%;
+    }
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .product-image {
+        max-width: 150px;
+        height: 60px;
+        margin: auto;
+    }
+    td {
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
+    }
+</style>
+
+<h3>@ViewBag.Title</h3>
+<hr />
+<table>
+    @foreach (var bait in Model.Products)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(item => bait.Name) |
+                <img src="/Images/@bait.Image" alt="bait image" class="product-image"/> |
+                @Html.DisplayFor(item => bait.Price) kr
+            </td>
+        </tr>
+    }
+</table>

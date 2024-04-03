@@ -5,15 +5,5 @@
     ViewData["Title"] = "Home page";
 }
 
-<h1>Welcome, @accessControl.LoggedInAccountName!</h1>
+<h1 class="home-page-welcome">Calås & Flink's Fiskerihörna!</h1>
 
-<table>
-@foreach (var product in Model.Products)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(item => product.Name)
-        </td>
-    </tr>
-}
-</table>

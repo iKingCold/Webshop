@@ -14,12 +14,5 @@ namespace Webshop.Pages
         {
             this.database = database;
         }
-
-        public List<Product> Products { get; set; }
-
-        public async Task OnGetAsync()
-        {
-            Products =  await database.Products.ToListAsync();
-        }
     }
 }

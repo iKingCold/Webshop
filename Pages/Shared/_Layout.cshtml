@@ -15,6 +15,16 @@
         <environment names="Development">
             @await Component.InvokeAsync(nameof(FakeLoginMenu))
         </environment>
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <a asp-page="/Webstore/Index">Beten</a>
+                </li>
+                <li>
+                    <a asp-page="/Webstore/Cart">Varukorg</a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main>
         @RenderBody()
