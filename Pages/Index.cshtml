@@ -6,3 +6,14 @@
 }
 
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
+
+<table>
+@foreach (var product in Model.Products)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(item => product.Name)
+        </td>
+    </tr>
+}
+</table>

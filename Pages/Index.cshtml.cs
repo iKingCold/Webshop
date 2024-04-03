@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Webshop.Data;
+using Webshop.Models;
 
 namespace Webshop.Pages
 {
@@ -13,9 +15,11 @@ namespace Webshop.Pages
             this.database = database;
         }
 
-        public void OnGet()
-        {
+        public List<Product> Products { get; set; }
 
+        public async Task OnGetAsync()
+        {
+            Products =  await database.Products.ToListAsync();
         }
     }
 }
