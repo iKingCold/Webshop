@@ -2,3 +2,23 @@
 @model Webshop.Pages.Webstore.DetailsModel
 @{
 }
+
+<h1>@Model.Product.Name</h1>
+<img src="/Images/@Model.Product.Image" alt="bait image" class="product-image" />
+<h2>@Model.Product.Description</h2>
+<h2>@Model.Product.Price kr</h2>
+
+<form method="post" asp-route-id="@Model.Product.Id" class="add-to-cart">
+    <button type="submit">Lägg till i varukorgen</button>
+    <label for="quantity">Antal:</label>
+    <input type="number" name="quantity" id="quantity" value="1" min="0"/>
+</form>
+
+<style>
+    html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+    #quantity{
+        width: 40px;
+    }
+</style>
