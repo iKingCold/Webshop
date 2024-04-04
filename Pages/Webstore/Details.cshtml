@@ -8,7 +8,8 @@
 <h2>@Model.Product.Description</h2>
 <h2>@Model.Product.Price kr</h2>
 
-<form method="post" asp-route-id="@Model.Product.Id" class="add-to-cart">
+<form method="post" class="add-to-cart">
+    @* <input type="hidden" name="productId" value="@Model.Product.Id"> *@
     <button type="submit">Lägg till i varukorgen</button>
     <label for="quantity">Antal:</label>
     <input type="number" name="quantity" id="quantity" value="1" min="0"/>

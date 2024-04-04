@@ -2,3 +2,16 @@
 @model Webshop.Pages.Webstore.CartModel
 @{
 }
+<h1>Varukorg</h1>
+@foreach(var product in Model.Account_Products)
+{
+    <h2>@product.Product.Name</h2>
+    <h3>Antal: @product.Quantity</h3>
+    <img src="/Images/@product.Product.Image" class="product-image" />
+}
+
+<style>
+    .product-image{
+        max-width: 100px;
+    }
+</style>
