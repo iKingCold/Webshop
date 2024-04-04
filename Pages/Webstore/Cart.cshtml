@@ -1,5 +1,6 @@
 ﻿@page
 @model Webshop.Pages.Webstore.CartModel
+
 @{
 }
 <h1>Varukorg</h1>
@@ -14,6 +15,7 @@
         </tr>
     </thead>
     <tbody>
+        @{double sum = 0;}
         @foreach (var product in Model.Account_Products)
         {
             <tr class="cart-item">
@@ -21,9 +23,25 @@
                 <td>@product.Product.Name</td>
                 <td>@product.Quantity</td>
                 <td>@(product.Product.Price)kr</td>
-                <td>@(Math.Round(product.Product.Price * product.Quantity, 2))kr</td>
+
+                @{double totalPrice = Math.Round(product.Product.Price * product.Quantity, 2);}
+
+                <td>@(totalPrice)kr</td>
+
+                @{sum += totalPrice;}
             </tr>
         }
+        <tr class="cart-footer">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <form method="post" class="checkout-form">
+                    <input type="submit" value="Till kassan" id="order-button" />
+                </form>
+            </td>
+            <td>@Math.Round(sum, 2)kr</td>
+        </tr>
     </tbody>
 </table>
 
@@ -57,5 +75,15 @@
 
     th {
         background-color: #eee;
+    }
+
+    #order-button{
+        background-color: #ff6600;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
     }
 </style>

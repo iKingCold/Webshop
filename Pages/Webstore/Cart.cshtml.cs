@@ -23,5 +23,25 @@ namespace Webshop.Pages.Webstore
         {
             Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
         }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            //Rensa varukorgen
+            Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
+
+            if (Account_Products != null)
+            {
+                foreach(var account in Account_Products)
+                {
+                    database.Account_Products.Remove(account);
+                    await database.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+            return RedirectToPage("./OrderConfirmation");
+        }
     }
 }
