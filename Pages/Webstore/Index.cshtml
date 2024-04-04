@@ -4,6 +4,33 @@
     ViewBag.Title = "Beten";
 }
 
+
+<h3>@ViewBag.Title</h3>
+<form>
+    <p>
+        <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
+            <option value="">All</option>
+        </select>
+        Sök fiskedrag: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Sök" />
+        <a asp-page="/Webstore/Index">Rensa filter</a>
+    </p>
+</form>
+<hr />
+<div class="container">
+    @foreach (var bait in Model.Products)
+    {
+        <a asp-page="/Webstore/Details" asp-route-id="@bait.Id">
+            <div class="bait-box">
+                @bait.Name)
+                <img src="/Images/@bait.Image" alt="bait image" class="product-image" />
+                @bait.Price) kr
+            </div>
+        </a>
+    }
+</div>
+
+
 <style>
     html {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
@@ -48,25 +75,3 @@
         margin: auto;
     }
 </style>
-
-<h3>@ViewBag.Title</h3>
-<form>
-    <p>
-        Sök fiskedrag: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Sök" />
-        <a asp-page="/Webstore/Index">Rensa filter</a>
-    </p>
-</form>
-<hr />
-<div class="container">
-    @foreach (var bait in Model.Products)
-    {
-        <a asp-page="/Webstore/Details" asp-route-id="@bait.Id">
-            <div class="bait-box">
-                @Html.DisplayFor(item => bait.Name)
-                <img src="/Images/@bait.Image" alt="bait image" class="product-image" />
-                @Html.DisplayFor(item => bait.Price) kr
-            </div>
-        </a>
-    }
-</div>
