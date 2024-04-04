@@ -3,23 +3,72 @@
 @{
 }
 
-<h1>@Model.Product.Name</h1>
-<img src="/Images/@Model.Product.Image" alt="bait image" class="product-image" />
-<h2>@Model.Product.Description</h2>
-<h2>@Model.Product.Price kr</h2>
+<div class="product-detail">
+    <h2>@Model.Product.Name</h2>
+    <img src="/Images/@Model.Product.Image" alt="bait image" class="product-image" />
+    <p>@Model.Product.Description</p>
+    <p class="price">@Model.Product.Price kr</p>
 
-<form method="post" class="add-to-cart">
-    @* <input type="hidden" name="productId" value="@Model.Product.Id"> *@
-    <button type="submit">Lägg till i varukorgen</button>
-    <label for="quantity">Antal:</label>
-    <input type="number" name="quantity" id="quantity" value="1" min="0"/>
-</form>
+    <form method="post" class="add-to-cart-form">
+        <input type="hidden" name="id" value="@Model.Product.Id">
+        <label for="quantity">Antal:</label>
+        <input type="number" name="quantity" id="quantity" value="1" min="1" />
+        <input type="submit" value="Lägg till i varukorg" id="cart-button" />
+    </form>
+</div>
 
 <style>
     html {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
     }
-    #quantity{
+
+    #quantity {
         width: 40px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .product-detail {
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .product-detail h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+    }
+
+    .product-detail p {
+            font-size: 16px;
+            color: #666;
+    }
+
+    .product-detail .price {
+            font-size: 20px;
+            color: #ff6600;
+            font-weight: bold;
+    }
+
+    .add-to-cart-form {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+    }
+
+    #cart-button{
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
     }
 </style>

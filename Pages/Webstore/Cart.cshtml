@@ -3,15 +3,59 @@
 @{
 }
 <h1>Varukorg</h1>
-@foreach(var product in Model.Account_Products)
-{
-    <h2>@product.Product.Name</h2>
-    <h3>Antal: @product.Quantity</h3>
-    <img src="/Images/@product.Product.Image" class="product-image" />
-}
+<table class="cart">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Namn</th>
+            <th>Antal</th>
+            <th>Styckpris</th>
+            <th>Totalpris</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Account_Products)
+        {
+            <tr class="cart-item">
+                <td><img src="/Images/@product.Product.Image" class="product-image" /></td>
+                <td>@product.Product.Name</td>
+                <td>@product.Quantity</td>
+                <td>@(product.Product.Price)kr</td>
+                <td>@(Math.Round(product.Product.Price * product.Quantity, 2))kr</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 
 <style>
-    .product-image{
-        max-width: 100px;
+    html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    .product-image {
+        max-width: 80px;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .cart {
+        background-color: #f9f9f9;
+        padding: 20px 0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #eee;
     }
 </style>
