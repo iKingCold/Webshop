@@ -2,47 +2,58 @@
 @model Webshop.Pages.Webstore.CartModel
 
 @{
+    double sum = 0;
 }
+
 <h1>Varukorg</h1>
 <table class="cart">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Namn</th>
-            <th>Antal</th>
-            <th>Styckpris</th>
-            <th>Totalpris</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{double sum = 0;}
-        @foreach (var product in Model.Account_Products)
-        {
-            <tr class="cart-item">
-                <td><img src="/Images/@product.Product.Image" class="product-image" /></td>
-                <td>@product.Product.Name</td>
-                <td>@product.Quantity</td>
-                <td>@(product.Product.Price)kr</td>
-
-                @{double totalPrice = Math.Round(product.Product.Price * product.Quantity, 2);}
-
-                <td>@(totalPrice)kr</td>
-
-                @{sum += totalPrice;}
+    @if (Model.Account_Products.Any())
+    {
+        <thead>
+            <tr>
+                <th></th>
+                <th>Namn</th>
+                <th>Antal</th>
+                <th>Styckpris</th>
+                <th>Totalpris</th>
             </tr>
-        }
-        <tr class="cart-footer">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-                <form method="post" class="checkout-form">
-                    <input type="submit" value="Till kassan" id="order-button" />
-                </form>
-            </td>
-            <td>@Math.Round(sum, 2)kr</td>
-        </tr>
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Account_Products)
+            {
+                <tr class="cart-item">
+                    <td><img src="/Images/@product.Product.Image" class="product-image" /></td>
+                    <td>@product.Product.Name</td>
+                    <td>@product.Quantity</td>
+                    <td>@(product.Product.Price)kr</td>
+
+                    @{
+                        double totalPrice = Math.Round(product.Product.Price * product.Quantity, 2);
+                        sum += totalPrice;
+                    }
+
+                    <td>@(totalPrice)kr</td>
+                </tr>
+            }
+            <tr class="cart-footer">
+                <td colspan="3"></td>
+                <td>
+                    <form method="post" class="checkout-form">
+                        <input type="submit" value="Till kassan" id="order-button" />
+                    </form>
+                </td>
+                <td>@Math.Round(sum, 2)kr</td>
+            </tr>
+        </tbody>
+    }
+    else
+    {
+        <tbody>
+            <tr>
+                <td>Din varukorg är tom</td>
+            </tr>
+        </tbody>
+    }
 </table>
 
 
@@ -77,7 +88,7 @@
         background-color: #eee;
     }
 
-    #order-button{
+    #order-button {
         background-color: #ff6600;
         color: #fff;
         border: none;

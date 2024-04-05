@@ -24,12 +24,17 @@ namespace Webshop.Pages.Webstore
 
         [BindProperty(SupportsGet = true)]
         public int? SelectedCategoryId { get; set; }
+        public int CurrentPage { get; set; }
 
 
-        public async Task OnGet(int? page)
+        public async Task OnGet(int pageId)
         {
+            if (pageId == 0)
+                pageId = 1;
+
+            CurrentPage = pageId;
             int pageSize = 10;
-            int pageNumber = page ?? 1;
+            //int pageNumber = page ?? 1;
 
             IQueryable<Category> categoryNameQuery = from c in database.Categories
                                                      orderby c.Name
