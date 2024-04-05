@@ -27,11 +27,8 @@ namespace Webshop.Pages.Webstore
         public int CurrentPage { get; set; }
 
 
-        public async Task OnGet(int pageId)
+        public async Task OnGet(int pageId = 1)
         {
-            if (pageId == 0)
-                pageId = 1;
-
             CurrentPage = pageId;
             int pageSize = 10;
             //int pageNumber = page ?? 1;

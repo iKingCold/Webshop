@@ -6,25 +6,25 @@
 
 
 <h3>@ViewBag.Title</h3>
- <form>
+<form>
     @*<p>
-        <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
-            <option value="">All</option>
-        </select>*@
-        Sök fiskedrag: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Sök" />
-        <a asp-page="/Webstore/Index">Rensa filter</a>
+    <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
+    <option value="">All</option>
+    </select>*@
+    Sök fiskedrag: <input type="text" asp-for="SearchString" />
+    <input type="submit" value="Sök" />
+    <a asp-page="/Webstore/Index">Rensa filter</a>
     </p>
-</form> 
+</form>
 <hr />
 <div class="container">
-    @for (int i = (Model.CurrentPage -1) * 10; i < (Model.CurrentPage * 10) ; i++)
+    @for (int i = (Model.CurrentPage - 1) * 10; i < Math.Min(Model.CurrentPage * 10, Model.Products.Count); i++)
     {
         <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
             <div class="bait-box">
-                @Model.Products[i].Name)
+                @Model.Products[i].Name
                 <img src="/Images/@Model.Products[i].Image" alt="bait image" class="product-image" />
-                @Model.Products[i].Price) kr
+                @(Model.Products[i].Price)kr
             </div>
         </a>
     }
@@ -37,10 +37,22 @@
             <button type="submit" class="previous-page-button">Föregående Sida</button>
         </form>
     }
-    <form asp-page="webstore" method="get" class="page-navigation-form">
-        <input type="hidden" name="pageId" value="@(Model.CurrentPage + 1)" />
-        <button type="submit" class="next-page-button">Nästa Sida</button>
-    </form>
+    else
+    {
+        <button type="button" class="previous-page-button" disabled>Föregående Sida</button>
+    }
+
+    @if (Model.CurrentPage * 10 < Model.Products.Count)
+    {
+        <form asp-page="webstore" method="get" class="page-navigation-form">
+            <input type="hidden" name="pageId" value="@(Model.CurrentPage + 1)" />
+            <button type="submit" class="next-page-button">Nästa Sida</button>
+        </form>
+    }
+    else
+    {
+        <button type="button" class="next-page-button" disabled>Nästa Sida</button>
+    }
 </div>
 
 
@@ -88,7 +100,7 @@
         margin: auto;
     }
 
-    .previous-page-button, .next-page-button{
+    .previous-page-button, .next-page-button {
         background-color: #7393B3;
         color: #fff;
         border: none;
@@ -98,10 +110,16 @@
         font-size: 16px;
         margin: 10px;
     }
-    .page-navigation-form{
+    button:disabled{
+        background-color: #808080;
+        cursor: not-allowed;
+    }
+
+    .page-navigation-form {
         display: inline-block;
     }
-    .page-navigation-div{
+
+    .page-navigation-div {
         text-align: center;
     }
 </style>
