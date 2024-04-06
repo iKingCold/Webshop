@@ -16,12 +16,21 @@
             @await Component.InvokeAsync(nameof(FakeLoginMenu))
         </environment>
         <nav class="navbar-header">
-            <ul>
-                <li>
-                    <a asp-page="/Webstore/Index" asp-route-pageId="1">Beten</a>
+            <ul class="navbar-list">
+                <li class="store-list-item">
+                    <div class="header-item start">
+                        <a asp-page="/Index" class="header-item"><img src="/Images/home-v2.png" class="anchor-image"/>Hem</a>
+                    </div>
                 </li>
-                <li>
-                    <a asp-page="/Webstore/Cart">Varukorg</a>
+                <li class="store-list-item">
+                    <div class="header-item center">
+                        <a asp-page="/Webstore/Index" class="header-item" asp-route-pageId="1"><img src="/Images/store-v1.png" class="anchor-image" />Butik</a>
+                    </div>
+                </li>
+                <li class="cart-list-item">
+                    <div class="header-item end">
+                        <a asp-page="/Webstore/Cart" class="header-item"><img src="/Images/shopping-cart-v2.png" class="anchor-image" />Varukorg</a>
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -31,3 +40,41 @@
     </main>
 </body>
 </html>
+<style>
+    .navbar-list{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 60px;
+        padding: 0;
+    }
+
+    .header-item {
+        display: flex;
+        align-items: center;
+    }
+    .start{
+        justify-content: flex-start;
+    }
+    .center{
+        justify-content: center;
+    }
+    .end{
+        justify-content: flex-end;
+    }
+
+    .anchor-image {
+        width: 40px;
+        margin: 0 5px;
+    }
+
+    .cart-list-item, .store-list-item {
+        flex: 1;
+    }
+    ul{
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
