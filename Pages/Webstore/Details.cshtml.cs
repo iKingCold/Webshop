@@ -57,12 +57,22 @@ namespace Webshop.Pages.Webstore
             }
             else
             {
-                Account_Product.Account = await database.Accounts.Where(a => a.ID == accessControl.LoggedInAccountID).FirstAsync();
-                Account_Product.Product = product;
-                Account_Product.Quantity = quantity;
+                var existingProduct = await database.Account_Products.FirstOrDefaultAsync(ap => ap.Product.Id == product.Id && ap.Account.ID == accessControl.LoggedInAccountID);
+
+                if (existingProduct != null)
+                {
+                    existingProduct.Quantity += quantity;
+                }
+                else
+                {
+                    Account_Product.Account = await database.Accounts.Where(a => a.ID == accessControl.LoggedInAccountID).FirstAsync();
+                    Account_Product.Product = product;
+                    Account_Product.Quantity = quantity;
+
+                    database.Account_Products.Add(Account_Product);
+                }
             }
 
-            database.Account_Products.Add(Account_Product);
             await database.SaveChangesAsync();
 
             return RedirectToPage("./Index");
