@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Cryptography.X509Certificates;
 using Webshop.Data;
 using Webshop.Models;
 
@@ -71,11 +73,11 @@ namespace Webshop.Pages.Webstore
 
                     database.Account_Products.Add(Account_Product);
                 }
+
+                await database.SaveChangesAsync();
             }
 
-            await database.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Webstore/Details", new { id }); // Get-metod i Details förväntar sig id-param, därav "new id" = den produkt som precis lades till i cart
         }
     }
 }

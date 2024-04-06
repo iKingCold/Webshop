@@ -7,13 +7,14 @@
 
 <h3>@ViewBag.Title</h3>
 <form>
-    @*<p>
-    <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
-    <option value="">All</option>
-    </select>*@
-    Sök fiskedrag: <input type="text" asp-for="SearchString" />
-    <input type="submit" value="Sök" />
-    <a asp-page="/Webstore/Index">Rensa filter</a>
+    <p>
+        <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
+            <option value="">All</option>
+        </select>
+        <label for="SearchString">Sök fiskedrag:</label>
+        <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Sök" />
+        <a asp-page="/Webstore/Index">Rensa filter</a>
     </p>
 </form>
 <hr />
@@ -32,7 +33,7 @@
 <div class="page-navigation-div">
     @if (Model.CurrentPage > 1)
     {
-        <form asp-page="webstore" method="get" class="page-navigation-form">
+        <form method="get" class="page-navigation-form">
             <input type="hidden" name="pageId" value="@(Model.CurrentPage - 1)" />
             <button type="submit" class="previous-page-button">Föregående Sida</button>
         </form>
@@ -44,7 +45,7 @@
 
     @if (Model.CurrentPage * 10 < Model.Products.Count)
     {
-        <form asp-page="webstore" method="get" class="page-navigation-form">
+        <form method="get" class="page-navigation-form">
             <input type="hidden" name="pageId" value="@(Model.CurrentPage + 1)" />
             <button type="submit" class="next-page-button">Nästa Sida</button>
         </form>
@@ -110,7 +111,8 @@
         font-size: 16px;
         margin: 10px;
     }
-    button:disabled{
+
+    button:disabled {
         background-color: #808080;
         cursor: not-allowed;
     }
