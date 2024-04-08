@@ -15,6 +15,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Remove="wwwroot\Images\bg.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />

@@ -5,5 +5,74 @@
     ViewData["Title"] = "Home page";
 }
 
+<hr />
 <h1 class="home-page-welcome">Calås & Flink's Fiskerihörna!</h1>
+<h2 class="random-products">Utvalda produkter</h2>
+<div class="container">
+    @for (int i = 0; i < Model.Products.Count; i++)
+    {
+        <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
+            <div class="bait-box">
+                <h3 class="product-name">@Model.Products[i].Name</h3>
+                <img src="/Images/@Model.Products[i].Image" alt="bait image" class="product-image" />
+                <p class="product-price">@(Model.Products[i].Price) :-</p>
+            </div>
+        </a>
+    }
+</div>
+
+<style>
+    html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 70px;
+    }
+
+    .random-products {
+        text-align: center;
+    }
+
+    .container {
+        max-width: 70%;
+        margin: auto;
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bait-box {
+        display: flex;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        width: 250px;
+        height: 250px;
+        box-shadow: 0 0 4px black;
+        border-radius: 5px;
+    }
+
+        .bait-box .product-name {
+            font-size: 15px;
+            color: black;
+        }
+
+        .bait-box .product-price {
+            font-size: 15px;
+            font-weight: bold;
+            color: red;
+        }
+
+    .product-image {
+        max-width: 300px;
+        height: 140px;
+        margin: auto;
+    }
+</style>
 

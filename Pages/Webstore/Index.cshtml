@@ -6,26 +6,29 @@
 
 
 <h3>@ViewBag.Title</h3>
-<form>
-    <p>
-        <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
-            <option value="">All</option>
-        </select>
-        <label for="SearchString">Sök fiskedrag:</label>
-        <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Sök" />
-        <a asp-page="/Webstore/Index">Rensa filter</a>
-    </p>
-</form>
+<div class="search-options">
+    <form class="search-filter">
+        <p>
+            Filtrera på kategori:
+            <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
+                <option value="">All</option>
+            </select>
+            <label for="SearchString">Sök fiskedrag:</label>
+            <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Sök" />
+            <a asp-page="/Webstore/Index" id="clear-filter">Rensa filter</a>
+        </p>
+    </form>
+</div>
 <hr />
 <div class="container">
     @for (int i = (Model.CurrentPage - 1) * 10; i < Math.Min(Model.CurrentPage * 10, Model.Products.Count); i++)
     {
         <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
             <div class="bait-box">
-                @Model.Products[i].Name
+                <h3 class="product-name">@Model.Products[i].Name</h3>
                 <img src="/Images/@Model.Products[i].Image" alt="bait image" class="product-image" />
-                @(Model.Products[i].Price)kr
+                <p class="product-price">@(Model.Products[i].Price) :-</p>
             </div>
         </a>
     }
@@ -74,6 +77,41 @@
         list-style-type: none;
     }
 
+    .search-options {
+        display: flex;
+        justify-content: center;
+    }
+
+    select, input[type="text"], input[type="submit"] {
+        border-radius: 5px;
+    }
+
+    select {
+        height: 25px;
+        margin-right: 15px;
+    }
+
+        select option {
+            background-color: black;
+            color: white;
+        }
+
+    input[type="text"] {
+        height: 20px;
+    }
+
+    input[type="submit"] {
+        width: 60px;
+        padding: 3px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+    }
+
+    #clear-filter {
+        font-weight: bold;
+    }
+
     .container {
         max-width: 70%;
         margin: auto;
@@ -94,6 +132,17 @@
         box-shadow: 0 0 4px black;
         border-radius: 5px;
     }
+
+        .bait-box .product-name {
+            font-size: 15px;
+            color: black;
+        }
+
+        .bait-box .product-price {
+            font-size: 15px;
+            font-weight: bold;
+            color: red;
+        }
 
     .product-image {
         max-width: 300px;
