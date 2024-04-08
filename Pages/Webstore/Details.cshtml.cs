@@ -77,7 +77,7 @@ namespace Webshop.Pages.Webstore
                 await database.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Webstore/Details", new { id }); // Get-metod i Details förväntar sig id-param, därav "new id" = den produkt som precis lades till i cart
+            return RedirectToPage("/Webstore/Index"); // Get-metod i Details förväntar sig id-param, därav "new id" = den produkt som precis lades till i cart
         }
     }
 }

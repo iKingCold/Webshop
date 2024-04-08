@@ -19,15 +19,25 @@ namespace Webshop.Pages.Webstore
 
         public List<Account_Product> Account_Products { get; set; }
         public decimal Sum { get; set; }
+        public decimal Discount { get; set; }
+        public string DiscountCode { get; set; }
 
         public void OnGet()
         {
             LoadAccountProducts();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string discountCode)
         {
             LoadAccountProducts();
+
+            DiscountCode = discountCode;
+
+            if (DiscountCode == "jakob")
+            {
+                Discount = 0.15m;
+                Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity) * (1 - Discount);
+            }
 
             if (Account_Products != null)
             {

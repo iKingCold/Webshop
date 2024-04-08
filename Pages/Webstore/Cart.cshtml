@@ -37,7 +37,9 @@
                         <input type="submit" value="Till kassan" id="order-button" />
                     </form>
                 </td>
-                <td>@Math.Round(Model.Sum, 2)kr</td>
+                <td>
+                    @Math.Round(Model.Sum, 2)kr
+                </td>
             </tr>
         </tbody>
     }
@@ -52,6 +54,17 @@
 </table>
 @if (Model.Account_Products.Any())
 {
+    <div class="discount-form">
+        <form>
+            <p>
+                <label for="discount-input" class="discount-label">Ange rabattkod:</label>
+                <input type="text" id="discount-input" name="DiscountCode" />
+                <input type="submit" id="discount-button" />
+            </p>
+        </form>
+        <p>(Rabatten dras av på totalbeloppet i orderbekräftelsen)</p>
+    </div>
+
     <form method="post" class="clear-cart" asp-page-handler="ClearCart">
         <input type="submit" value="Rensa varukorg" id="clear-cart-button"></input>
     </form>
@@ -102,8 +115,14 @@
         display: flex;
         justify-content: flex-end;
     }
+
     #clear-cart-button {
         background-color: red;
         margin-right: 40px;
+    }
+
+    .discount-form {
+        text-align: right;
+        margin-right: 30px;
     }
 </style>
