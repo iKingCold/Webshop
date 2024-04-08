@@ -1,0 +1,43 @@
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+/*_Layout styling*/
+.navbar-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 60px;
+    padding: 0;
+}
+
+.header-item {
+    display: flex;
+    align-items: center;
+}
+
+.start {
+    justify-content: flex-start;
+}
+
+.center {
+    justify-content: center;
+}
+
+.end {
+    justify-content: flex-end;
+}
+
+.anchor-image {
+    width: 40px;
+    margin: 0 5px;
+}
+
+.cart-list-item, .store-list-item {
+    flex: 1;
+}
+ul, a {
+    list-style: none;
+    text-decoration: none;
+}
+/*_Layout styling*/
