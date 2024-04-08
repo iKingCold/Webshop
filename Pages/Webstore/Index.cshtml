@@ -5,12 +5,13 @@
 }
 
 
-<h3>@ViewBag.Title</h3>
+<hr />
+<h1>@ViewBag.Title</h1>
 <div class="search-options">
     <form class="search-filter">
         <p>
             Filtrera på kategori:
-            <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList">
+            <select asp-for="SelectedCategoryId" asp-items="Model.CategoryList" onchange="this.form.submit()">
                 <option value="">All</option>
             </select>
             <label for="SearchString">Sök fiskedrag:</label>
@@ -20,7 +21,6 @@
         </p>
     </form>
 </div>
-<hr />
 <div class="container">
     @for (int i = (Model.CurrentPage - 1) * 10; i < Math.Min(Model.CurrentPage * 10, Model.Products.Count); i++)
     {
@@ -75,6 +75,10 @@
 
     li {
         list-style-type: none;
+    }
+
+    h1 {
+        text-align: center;
     }
 
     .search-options {

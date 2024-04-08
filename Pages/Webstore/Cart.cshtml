@@ -55,7 +55,12 @@
         </tbody>
     }
 </table>
-
+@if (Model.Account_Products.Any())
+{
+    <form method="post" class="clear-cart" asp-page-handler="ClearCart">
+        <input type="submit" value="Rensa varukorg" id="clear-cart-button"></input>
+    </form>
+}
 
 <style>
     html {
@@ -88,7 +93,7 @@
         background-color: #eee;
     }
 
-    #order-button {
+    #order-button, #clear-cart-button {
         background-color: #ff6600;
         color: #fff;
         border: none;
@@ -96,5 +101,14 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+    }
+
+    .clear-cart {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #clear-cart-button {
+        background-color: red;
+        margin-right: 40px;
     }
 </style>
