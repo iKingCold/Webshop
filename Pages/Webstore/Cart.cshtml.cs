@@ -22,19 +22,16 @@ namespace Webshop.Pages.Webstore
 
         public void OnGet()
         {
-            Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
-            Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity);
+            LoadAccountProducts();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            //Rensa varukorgen
-            Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
-            Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity);
+            LoadAccountProducts();
 
             if (Account_Products != null)
             {
-                foreach(var account in Account_Products)
+                foreach (var account in Account_Products)
                 {
                     database.Account_Products.Remove(account);
                     await database.SaveChangesAsync();
@@ -49,6 +46,26 @@ namespace Webshop.Pages.Webstore
             TempData["TotalPrice"] = Sum.ToString();
 
             return RedirectToPage("./OrderConfirmation");
+        }
+
+        public async Task<IActionResult> OnPostClearCartAsync()
+        {
+            LoadAccountProducts();
+
+            if (Account_Products != null)
+            {
+                foreach (var cartItems in Account_Products)
+                {
+                    database.Account_Products.Remove(cartItems);
+                    await database.SaveChangesAsync();
+                }
+            }
+            return RedirectToPage("./Cart");
+        }
+
+        public void LoadAccountProducts()
+        {
+            Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
         }
     }
 }
