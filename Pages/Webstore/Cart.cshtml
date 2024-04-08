@@ -1,10 +1,6 @@
 ﻿@page
 @model Webshop.Pages.Webstore.CartModel
 
-@{
-    double sum = 0;
-}
-
 <h1>Varukorg</h1>
 <table class="cart">
     @if (Model.Account_Products.Any())
@@ -28,8 +24,7 @@
                     <td>@(product.Product.Price)kr</td>
 
                     @{
-                        double totalPrice = Math.Round(product.Product.Price * product.Quantity, 2);
-                        sum += totalPrice;
+                        decimal totalPrice = Math.Round(product.Product.Price * product.Quantity, 2);
                     }
 
                     <td>@(totalPrice)kr</td>
@@ -42,7 +37,7 @@
                         <input type="submit" value="Till kassan" id="order-button" />
                     </form>
                 </td>
-                <td>@Math.Round(sum, 2)kr</td>
+                <td>@Math.Round(Model.Sum, 2)kr</td>
             </tr>
         </tbody>
     }

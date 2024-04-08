@@ -13,8 +13,27 @@ namespace Webshop.Pages.Webstore
             this.database = database;
         }
 
+        public decimal Sum { get; set; }
+
         public void OnGet()
         {
+            if (TempData.ContainsKey("TotalPrice") && TempData != null)
+            {
+                string? tempSum = TempData["TotalPrice"] as string;
+
+                if (tempSum != null)
+                {
+                    Sum = decimal.Parse(tempSum);
+                }
+                else
+                {
+                    Sum = 0;
+                }
+            }
+            else
+            {
+                Sum = 0;
+            }
         }
     }
 }
