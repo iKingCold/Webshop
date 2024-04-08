@@ -66,6 +66,7 @@ namespace Webshop.Pages.Webstore
         public void LoadAccountProducts()
         {
             Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
+            Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity);
         }
     }
 }
