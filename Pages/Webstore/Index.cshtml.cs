@@ -10,10 +10,12 @@ namespace Webshop.Pages.Webstore
     public class IndexModel : PageModel
     {
         private readonly AppDbContext database;
+        private readonly AccessControl accessControl;
 
-        public IndexModel(AppDbContext database)
+        public IndexModel(AppDbContext database, AccessControl accessControl)
         {
             this.database = database;
+            this.accessControl = accessControl;
         }
 
         public List<Product> Products { get; set; }
@@ -26,6 +28,7 @@ namespace Webshop.Pages.Webstore
         public int? SelectedCategoryId { get; set; }
         public int CurrentPage { get; set; }
 
+        public Account_Product Account_Product { get; set; } = new Account_Product();
 
         public async Task OnGet(int pageId = 1)
         {
@@ -41,7 +44,7 @@ namespace Webshop.Pages.Webstore
 
 
             var product = from p in database.Products
-                        select p;    
+                          select p;
 
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -57,6 +60,42 @@ namespace Webshop.Pages.Webstore
             int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
             Products = await product.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostFastPurchase(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await database.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var existingProduct = await database.Account_Products.FirstOrDefaultAsync(ap => ap.Product.Id == product.Id && ap.Account.ID == accessControl.LoggedInAccountID);
+
+                if (existingProduct != null)
+                {
+                    existingProduct.Quantity += 1;
+                }
+                else
+                {
+                    Account_Product.Account = await database.Accounts.Where(a => a.ID == accessControl.LoggedInAccountID).FirstAsync();
+                    Account_Product.Product = product;
+                    Account_Product.Quantity = 1;
+
+                    database.Account_Products.Add(Account_Product);
+                }
+
+                await database.SaveChangesAsync();
+            }
+
+            return RedirectToPage("/Webstore/Cart");
         }
 
         public IActionResult OnGetReset()

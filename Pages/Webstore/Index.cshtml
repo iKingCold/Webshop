@@ -24,13 +24,19 @@
 <div class="container">
     @for (int i = (Model.CurrentPage - 1) * 10; i < Math.Min(Model.CurrentPage * 10, Model.Products.Count); i++)
     {
-        <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
-            <div class="bait-box">
+        var product = Model.Products[i];
+
+        <div class="bait-box">
+            <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
                 <h3 class="product-name">@Model.Products[i].Name</h3>
                 <img src="/Images/@Model.Products[i].Image" alt="bait image" class="product-image" />
                 <p class="product-price">@(Model.Products[i].Price) :-</p>
-            </div>
-        </a>
+            </a>
+            <form method="post" asp-page-handler="FastPurchase">
+                <input type="hidden" name="id" value="@product.Id">
+                <input type="submit" value="Köp" id="quick-purchase" />
+            </form>
+        </div>
     }
 </div>
 <div class="page-navigation-div">
@@ -95,10 +101,10 @@
         margin-right: 15px;
     }
 
-        select option {
-            background-color: black;
-            color: white;
-        }
+    select option {
+        background-color: black;
+        color: white;
+    }
 
     input[type="text"] {
         height: 20px;
@@ -156,6 +162,15 @@
         max-width: 240px;
         height: 140px;
         margin: auto;
+    }
+
+    #quick-purchase {
+        background-color: #ff6600;
+        color: #fff;
+        border: 1px solid #ddf;
+        padding: 4px;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
     .previous-page-button, .next-page-button {
