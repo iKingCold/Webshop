@@ -73,6 +73,24 @@ namespace Webshop.Pages.Webstore
             return RedirectToPage("./Cart");
         }
 
+        public async Task<IActionResult> OnPostDeleteAsync(int productId)
+        {
+            LoadAccountProducts();
+
+            if (Account_Products != null)
+            {
+                var product = await database.Account_Products.FindAsync(productId);
+
+                if (product != null)
+                {
+                    database.Account_Products.Remove(product);
+                    await database.SaveChangesAsync();
+                }
+            }
+            
+            return RedirectToPage("./Cart");
+        }
+
         public void LoadAccountProducts()
         {
             Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
