@@ -11,7 +11,7 @@
                 <th>Namn</th>
                 <th>Antal</th>
                 <th>Styckpris</th>
-                <th>Totalpris</th>
+                <th colspan="2">Totalpris</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +28,12 @@
                     }
 
                     <td>@(totalPrice)kr</td>
+                    <td>
+                        <form method="post" class="remove-item-form" asp-page-handler="Delete">
+                            <input type="hidden" name="productId" value="@product.Id"/>
+                            <input type="submit" value="❌" id="remove-button"/>
+                        </form>
+                    </td>
                 </tr>
             }
             <tr class="cart-footer">
@@ -39,6 +45,11 @@
                 </td>
                 <td>
                     @Math.Round(Model.Sum, 2)kr
+                </td>
+                <td class="last-cell">
+                    <form method="post" class="clear-cart" asp-page-handler="ClearCart">
+                        <input type="submit" value="Rensa varukorg" id="clear-cart-button"/>
+                    </form>
                 </td>
             </tr>
         </tbody>
@@ -64,10 +75,6 @@
         </form>
         <p>(Rabatten dras av på totalbeloppet i orderbekräftelsen)</p>
     </div>
-
-    <form method="post" class="clear-cart" asp-page-handler="ClearCart">
-        <input type="submit" value="Rensa varukorg" id="clear-cart-button"></input>
-    </form>
 }
 
 <style>
@@ -113,16 +120,35 @@
 
     .clear-cart {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
+        width: fit-content;
+    }
+
+    .remove-item-form{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .last-cell{
+        width: 0%;
     }
 
     #clear-cart-button {
         background-color: red;
-        margin-right: 40px;
     }
 
     .discount-form {
         text-align: right;
         margin-right: 30px;
+    }
+
+    #remove-button{
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+    }
+    #remove-button:hover{
+        color: transparent;
+        text-shadow: 0 0 0 gray;
     }
 </style>
