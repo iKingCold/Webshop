@@ -34,6 +34,8 @@ namespace Webshop.Pages.Webstore
             {
                 Sum = 0;
             }
+
+            Response.Cookies.Delete("DiscountCode");
         }
     }
 }

@@ -30,8 +30,8 @@
                     <td>@(totalPrice)kr</td>
                     <td>
                         <form method="post" class="remove-item-form" asp-page-handler="Delete">
-                            <input type="hidden" name="productId" value="@product.Id"/>
-                            <input type="submit" value="❌" id="remove-button"/>
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="submit" value="❌" id="remove-button" />
                         </form>
                     </td>
                 </tr>
@@ -43,12 +43,25 @@
                         <input type="submit" value="Till kassan" id="order-button" />
                     </form>
                 </td>
-                <td>
+                @{
+                    // If Discount Code is correct, apply class name to change Sum output to red
+                    string activeDiscountClass;
+
+                    if (Model.DiscountCode != null && Model.DiscountCode.ToLower() == "jakob")
+                    {
+                        activeDiscountClass = "discount-applied";
+                    }
+                    else
+                    {
+                        activeDiscountClass = "";
+                    }
+                }
+                <td class="@activeDiscountClass">
                     @Math.Round(Model.Sum, 2)kr
                 </td>
                 <td class="last-cell">
                     <form method="post" class="clear-cart" asp-page-handler="ClearCart">
-                        <input type="submit" value="Rensa varukorg" id="clear-cart-button"/>
+                        <input type="submit" value="Rensa varukorg" id="clear-cart-button" />
                     </form>
                 </td>
             </tr>
@@ -124,12 +137,13 @@
         width: fit-content;
     }
 
-    .remove-item-form{
+    .remove-item-form {
         display: flex;
         justify-content: center;
         width: 100%;
     }
-    .last-cell{
+
+    .last-cell {
         width: 0%;
     }
 
@@ -142,23 +156,28 @@
         margin-right: 30px;
     }
 
-    .discount-form:hover::after {
-        content: "Ledtråd: Lärare på Teknikhögskolan";
-        color: blue;
-        background-color: orange;
-        border-radius: 3px;
-        padding: 5px;
-        font-weight: bold;
-        font-size: 11px;
+        .discount-form:hover::after {
+            content: "Ledtråd: Lärare på Teknikhögskolan";
+            color: blue;
+            background-color: orange;
+            border-radius: 3px;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+    .discount-applied {
+        color: red;
     }
 
-    #remove-button{
+    #remove-button {
         background: none;
         border: none;
         font-size: 1.1rem;
     }
-    #remove-button:hover{
-        color: transparent;
-        text-shadow: 0 0 0 gray;
-    }
+
+        #remove-button:hover {
+            color: transparent;
+            text-shadow: 0 0 0 gray;
+        }
 </style>
