@@ -20,24 +20,24 @@ namespace Webshop.Pages.Webstore
         public List<Account_Product> Account_Products { get; set; }
         public decimal Sum { get; set; }
         public decimal Discount { get; set; }
-        public string DiscountCode { get; set; }
+        public string? DiscountCode { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet(string? discountCode)
         {
+            if (discountCode != null)
+            {
+                Response.Cookies.Append("DiscountCode", discountCode);
+                return RedirectToPage("./Cart");
+            }
+
             LoadAccountProducts();
+
+            return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string discountCode)
+        public async Task<IActionResult> OnPostAsync()
         {
             LoadAccountProducts();
-
-            DiscountCode = discountCode;
-
-            if (DiscountCode.ToLower() == "jakob")
-            {
-                Discount = 0.15m;
-                Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity) * (1 - Discount);
-            }
 
             if (Account_Products != null)
             {
@@ -87,14 +87,24 @@ namespace Webshop.Pages.Webstore
                     await database.SaveChangesAsync();
                 }
             }
-            
+
             return RedirectToPage("./Cart");
         }
 
         public void LoadAccountProducts()
         {
             Account_Products = database.Account_Products.Where(ap => ap.Account.ID == accessControl.LoggedInAccountID).Include(ap => ap.Product).ToList();
-            Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity);
+
+            DiscountCode = Request.Cookies["DiscountCode"];
+            if (DiscountCode != null && DiscountCode.ToLower() == "jakob")
+            {
+                Discount = 0.15m;
+                Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity) * (1 - Discount);
+            }
+            else
+            {
+                Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity);
+            }
         }
     }
 }
