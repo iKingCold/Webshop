@@ -26,15 +26,17 @@ namespace Webshop.Pages.Webstore
 
         [BindProperty(SupportsGet = true)]
         public int? SelectedCategoryId { get; set; }
+
+        //Pagination variables
         public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+        public int PageSize { get; set; } = 10;
 
         public Account_Product Account_Product { get; set; } = new Account_Product();
 
         public async Task OnGet(int pageId = 1)
         {
             CurrentPage = pageId;
-            int pageSize = 10;
-            //int pageNumber = page ?? 1;
 
             IQueryable<Category> categoryNameQuery = from c in database.Categories
                                                      orderby c.Name
@@ -57,9 +59,9 @@ namespace Webshop.Pages.Webstore
             }
 
             int totalCount = await product.CountAsync();
-            int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            TotalPages = (int)Math.Ceiling((double)totalCount / PageSize);
 
-            Products = await product.ToListAsync();
+            Products = await product.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostFastPurchase(int? id)
