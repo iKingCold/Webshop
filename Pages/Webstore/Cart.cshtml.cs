@@ -33,7 +33,7 @@ namespace Webshop.Pages.Webstore
 
             DiscountCode = discountCode;
 
-            if (DiscountCode == "jakob")
+            if (DiscountCode.ToLower() == "jakob")
             {
                 Discount = 0.15m;
                 Sum = Account_Products.Sum(ap => ap.Product.Price * ap.Quantity) * (1 - Discount);

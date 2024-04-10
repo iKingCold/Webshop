@@ -20,7 +20,7 @@
     </form>
 </div>
 <div class="container">
-    @foreach(var product in Model.Products)
+    @foreach (var product in Model.Products)
     {
         <div class="bait-box">
             <a asp-page="/Webstore/Details" asp-route-id="@product.Id">
@@ -141,7 +141,12 @@
         box-shadow: 0 0 4px black;
         border-radius: 5px;
         background-color: white;
+        transition: all 0.3s ease;
     }
+
+        .bait-box:hover {
+            transform: scale(1.1);
+        }
 
         .bait-box a {
             display: flex;
