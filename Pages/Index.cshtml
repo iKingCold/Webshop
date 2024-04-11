@@ -8,15 +8,19 @@
 <h1 class="home-page-welcome">Calås & Flink's Fiskerihörna!</h1>
 <h2 class="random-products">Utvalda produkter</h2>
 <div class="container">
-    @for (int i = 0; i < Model.Products.Count; i++)
+    @foreach (var product in Model.Products)
     {
-        <a asp-page="/Webstore/Details" asp-route-id="@Model.Products[i].Id">
-            <div class="bait-box">
-                <h3 class="product-name">@Model.Products[i].Name</h3>
-                <img src="/Images/@Model.Products[i].Image" alt="bait image" class="product-image" />
-                <p class="product-price">@(Model.Products[i].Price) :-</p>
-            </div>
-        </a>
+        <div class="bait-box">
+            <a asp-page="/Webstore/Details" asp-route-id="@product.Id">
+                <h3 class="product-name">@product.Name</h3>
+                <img src="/Images/@product.Image" alt="bait image" class="product-image" />
+                <p class="product-price">@(product.Price) :-</p>
+            </a>
+            <form method="post" asp-page="/webstore/Index" asp-page-handler="FastPurchase">
+                <input type="hidden" name="id" value="@product.Id">
+                <input type="submit" value="Köp" id="quick-purchase" />
+            </form>
+        </div>
     }
 </div>
 
@@ -58,9 +62,10 @@
         transition: all 0.3s ease;
     }
 
-    .bait-box:hover {
-        transform: scale(1.1);
-    }
+        .bait-box:hover {
+            transform: scale(1.1);
+        }
+
         .bait-box .product-name {
             font-size: 15px;
             color: black;
@@ -77,5 +82,28 @@
         height: 140px;
         margin: auto;
     }
+
+    #quick-purchase {
+        background-color: #ff6600;
+        color: #fff;
+        border: 1px solid #ddf;
+        padding: 4px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+
+    input[type="text"] {
+        height: 20px;
+    }
+
+    input[type="submit"] {
+        width: 60px;
+        padding: 3px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+    }
+
 </style>
 

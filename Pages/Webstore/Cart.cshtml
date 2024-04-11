@@ -43,20 +43,7 @@
                         <input type="submit" value="Till kassan" id="order-button" />
                     </form>
                 </td>
-                @{
-                    // If Discount Code is correct, apply class name to change Sum output to red
-                    string activeDiscountClass;
-
-                    if (Model.DiscountCode != null && Model.DiscountCode.ToLower() == "jakob")
-                    {
-                        activeDiscountClass = "discount-applied";
-                    }
-                    else
-                    {
-                        activeDiscountClass = "";
-                    }
-                }
-                <td class="@activeDiscountClass">
+                <td class="@(Model.Discount != 0 ? "discount-applied" : "")">
                     @Math.Round(Model.Sum, 2)kr
                 </td>
                 <td class="last-cell">
