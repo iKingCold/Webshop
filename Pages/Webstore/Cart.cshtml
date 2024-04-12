@@ -18,7 +18,7 @@
             @foreach (var product in Model.Account_Products)
             {
                 <tr class="cart-item">
-                    <td><img src="/Images/@product.Product.Image" class="product-image" /></td>
+                    <td><img src="/Images/@product.Product.Image" class="cart-product-image" /></td>
                     <td>@product.Product.Name</td>
                     <td>@product.Quantity</td>
                     <td>@(product.Product.Price)kr</td>
@@ -70,101 +70,8 @@
             <p>
                 <label for="discount-input" class="discount-label">Ange rabattkod:</label>
                 <input type="text" id="discount-input" name="DiscountCode" />
-                <input type="submit" id="discount-button" />
+                <input type="submit" id="discount-button" value="Uppdatera" />
             </p>
         </form>
-        <p>(Rabatten dras av på totalbeloppet i orderbekräftelsen)</p>
     </div>
 }
-
-<style>
-    html {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-    }
-
-    .product-image {
-        max-width: 80px;
-        height: auto;
-        margin-right: 20px;
-    }
-
-    .cart {
-        background-color: #f9f9f9;
-        padding: 20px 0;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    th, td {
-        border-bottom: 1px solid #ccc;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #eee;
-    }
-
-    #order-button, #clear-cart-button {
-        background-color: #ff6600;
-        color: #fff;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .clear-cart {
-        display: flex;
-        justify-content: flex-start;
-        width: fit-content;
-    }
-
-    .remove-item-form {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .last-cell {
-        width: 0%;
-    }
-
-    #clear-cart-button {
-        background-color: red;
-    }
-
-    .discount-form {
-        text-align: right;
-        margin-right: 30px;
-    }
-
-        .discount-form:hover::after {
-            content: "Ledtråd: Lärare på Teknikhögskolan";
-            color: blue;
-            background-color: orange;
-            border-radius: 3px;
-            padding: 5px;
-            font-weight: bold;
-            font-size: 11px;
-        }
-
-    .discount-applied {
-        color: red;
-    }
-
-    #remove-button {
-        background: none;
-        border: none;
-        font-size: 1.1rem;
-    }
-
-        #remove-button:hover {
-            color: transparent;
-            text-shadow: 0 0 0 gray;
-        }
-</style>
