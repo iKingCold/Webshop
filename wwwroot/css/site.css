@@ -184,13 +184,15 @@ button:disabled {
 
 /* Details Page */
 .product-detail {
+    margin-top: 30px;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    background: white;
 }
 
     .product-detail h2 {
@@ -209,6 +211,19 @@ button:disabled {
         color: #ff6600;
         font-weight: bold;
     }
+
+#quantity {
+    width: 40px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.details-product-image {
+    max-width: 300px;
+    height: auto;
+}
 
 .add-to-cart-form {
     margin-top: 20px;
@@ -287,7 +302,7 @@ th {
 }
 
     .discount-form:hover::after {
-        content: "Ledtråd: Lärare på Teknikhögskolan";
+        content: "Ledtråd: Lärare på Teknikhögskolan.";
         color: blue;
         background-color: orange;
         border-radius: 3px;
@@ -310,3 +325,27 @@ th {
         color: transparent;
         text-shadow: 0 0 0 gray;
     }
+
+/*OrderConfirmation Page*/
+
+.confirmation-div{
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.confirmation-form{
+    margin: 20px;
+    font-size: 2rem;
+}
+
+.confirmation-button {
+    font-size: 1.2rem;
+    background-color: #ff6600;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

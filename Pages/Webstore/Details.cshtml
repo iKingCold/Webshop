@@ -5,7 +5,8 @@
 
 <div class="product-detail">
     <h2>@Model.Product.Name</h2>
-    <img src="/Images/@Model.Product.Image" alt="bait image" class="product-image" />
+    <strong><p>Kategori: @Model.Product.Category.Name</p></strong>
+    <img src="/Images/@Model.Product.Image" alt="bait image" class="details-product-image" />
     <p>@Model.Product.Description</p>
     <p class="price">@Model.Product.Price kr</p>
 

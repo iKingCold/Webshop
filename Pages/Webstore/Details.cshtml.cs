@@ -31,7 +31,7 @@ namespace Webshop.Pages.Webstore
                 return NotFound();
             }
 
-            var product = await database.Products.FindAsync(id);
+            var product = await database.Products.Include(p => p.Category).FirstAsync(p => p.Id == id);
 
             if (product == null)
             {
