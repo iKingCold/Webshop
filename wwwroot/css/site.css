@@ -301,16 +301,6 @@ th {
     margin-right: 30px;
 }
 
-    .discount-form:hover::after {
-        content: "Ledtråd: Lärare på Teknikhögskolan.";
-        color: blue;
-        background-color: orange;
-        border-radius: 3px;
-        padding: 5px;
-        font-weight: bold;
-        font-size: 11px;
-    }
-
 .discount-applied {
     color: red;
 }
@@ -369,7 +359,7 @@ th {
         display: block;
     }
 
-        table.cart thead tr {
+        thead tr {
             position: absolute;
             top: -9999px;
             left: -9999px;
@@ -380,7 +370,6 @@ th {
     }
 
     td {
-        border: none;
         border-bottom: 1px solid #eee;
         position: relative;
         padding-left: 35%;
@@ -388,17 +377,15 @@ th {
 
         td:before {
             position: absolute;
-            top: 6px;
+            top: 10px;
             left: 6px;
-            width: 45%;
             padding-right: 10px;
-            white-space: nowrap;
         }
 
-        td:nth-of-type(2):before { content: "Namn" }
-        td:nth-of-type(3):before { content: "Antal" }
-        td:nth-of-type(4):before { content: "Styckpris" }
-        td:nth-of-type(5):before { content: "Totalpris" }
+        td:nth-of-type(2):before { content: "Namn"; font-weight: bold; }
+        td:nth-of-type(3):before { content: "Antal"; font-weight: bold; }
+        td:nth-of-type(4):before { content: "Styckpris"; font-weight: bold; }
+        td:nth-of-type(5):before { content: "Totalpris"; font-weight: bold; }
 
     .cart-footer td:nth-of-type(2):before,
     .cart-footer td:nth-of-type(3):before,
@@ -408,12 +395,8 @@ th {
 
     .cart-footer td:nth-of-type(1):before {
         content: "Totalsumma:";
-        margin-top: 83px;
+        margin-top: 80px;
         font-weight: bold;
-    }
-
-    .remove-item-form {
-        display: flex;
     }
 
     #remove-button {
@@ -424,7 +407,6 @@ th {
     .discount-form {
         text-align: center;
         display: flex;
-        justify-content: center;
         flex-direction: column;
     }
     .discount-form label {

@@ -75,3 +75,16 @@
         </form>
     </div>
 }
+
+@* Programmet decodade inte svenska bokstäver när denna stil låg i site.css och vi hittade ingen lösning, därav ligger den här *@
+<style>
+    .discount-form:hover::after {
+        content: "Ledtråd: Lärare på Teknikhögskolan.";
+        color: blue;
+        background-color: orange;
+        border-radius: 3px;
+        padding: 5px;
+        font-weight: bold;
+        font-size: 11px;
+    }
+</style>
